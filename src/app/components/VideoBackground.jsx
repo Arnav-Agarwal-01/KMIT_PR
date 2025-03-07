@@ -43,7 +43,8 @@ export default function VideoBackground() {
           minHeight: '100%',
           width: 'auto',
           height: 'auto',
-          zIndex: '-1'
+          zIndex: '-1',
+          objectFit: 'cover' // Ensure the video covers the entire background
         }}
       >
         <source src="/background.mp4" type="video/mp4" />
