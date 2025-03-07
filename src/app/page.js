@@ -1,101 +1,290 @@
-import Image from "next/image";
+'use client';
+
+import React from 'react';
+import { motion, useScroll, useInView } from "framer-motion";
+import { useRef, useEffect, useState } from 'react';
+import VideoBackground from './components/VideoBackground';
+import Footer from './components/Footer';
+import Link from 'next/link';
+import Image from 'next/image';
 
 export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.js
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+  const { scrollY } = useScroll();
+  const footerRef = useRef(null);
+  const isFooterInView = useInView(footerRef, { once: false, amount: 0.1 });
+  const [visible, setVisible] = useState(false);
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+  useEffect(() => {
+    return scrollY.onChange((latest) => {
+      setVisible(latest > 10);
+    });
+  }, [scrollY]);
+
+  const navVariants = {
+    hidden: { opacity: 0, x: 50 , y:50},
+    visible: { opacity: 1, x: 20 , y:-120}
+  };
+
+  return (
+    <>
+      <VideoBackground />
+      <motion.nav 
+        className="navbar"
+        variants={navVariants}
+        initial="hidden"
+        animate={visible ? "visible" : "hidden"}
+        transition={{ duration: 0.5, ease: "easeOut" }}
+      >
+        <div className="nav-content">
+          <a href="#" className="nav-link">KMIT</a>
+          <div className="nav-links">
+            <a href="#about" className="nav-link">About</a>
+            <a href="#news" className="nav-link">News</a>
+            <a href="#events" className="nav-link">Events</a>
+            <a href="#contact" className="nav-link">Contact</a>
+          </div>
         </div>
+      </motion.nav>
+
+      <main className="min-h-screen relative z-10">
+        <section className="hero-section min-h-screen">
+          
+          <motion.div 
+            className="hero-content"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: "easeOut" }}
+          >
+            <h1 className="hero-title">
+              Public Relations KMIT
+            </h1>
+            <p className="hero-subtitle">
+              Crafting Stories, Building Connections.
+            </p>
+            
+            <motion.div 
+              className="services-grid"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.5, duration: 0.8 }}
+            >
+              <motion.div 
+                className="service-card"
+                whileHover={{ scale: 1.05 }}
+                transition={{ type: "spring", stiffness: 300 }}
+              >
+                <h3>Media Relations</h3>
+                <p>Strategically collaborating with media outlets to share KMIT's innovations, achievements, and impact on education and technology.</p>
+              </motion.div>
+              
+              <motion.div 
+                className="service-card"
+                whileHover={{ scale: 1.05 }}
+                transition={{ type: "spring", stiffness: 300 }}
+              >
+                <h3>Event Management</h3>
+                <p>Creating memorable experiences through amazing events that showcase KMIT's vibrant community.</p>
+              </motion.div>
+              
+              <motion.div 
+                className="service-card"
+                whileHover={{ scale: 1.05 }}
+                transition={{ type: "spring", stiffness: 300 }}
+              >
+                <h3>Digital Communications</h3>
+                <p>Leveraging modern platforms to tell KMIT's story, engage with stakeholders, and build a strong online presence.</p>
+              </motion.div>
+            </motion.div>
+            
+            <motion.div 
+              className="mt-12"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.8, duration: 0.8 }}
+            >
+              <a href="#contact" className="btn btn-primary mr-4">Get in Touch</a>
+              <a href="#about" className="btn btn-outline">Learn More</a>
+            </motion.div>
+          </motion.div>
+        </section>
+
+        <motion.section 
+          id="about"
+          className="section about-section"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true, amount: 0.3 }}
+        >
+          <div className="section-content">
+            <h2 className="section-title">About Us</h2>
+            <div className="about-grid">
+              <div className="about-content">
+                <p>Meet us, the Public Relations team of Keshav Memorial Institute Of Technology</p>
+                <p>The bridge between the students and the college , and the thread which connects the college to the world</p>
+                <button className="btn btn-primary" >Meet The Team</button>
+              </div>
+              <div className="about-image">
+                <Image 
+                  src="/image.png"
+                  alt="About KMIT PR"
+                  width={500}
+                  height={300}
+                  priority
+                />
+              </div>
+            </div>
+          </div>
+        </motion.section>
+
+        <motion.section 
+          id="news"
+          className="section"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true, amount: 0.3 }}
+        >
+          <div className="section-content">
+            <h2 className="section-title">Latest Events</h2>
+            <div className="services-grid">
+              <div className="service-card">
+                <h3>Codenovate-2024</h3>
+                <p>KMIT's Annual hackathon , attended by more than 500 people from across the region.</p>
+              </div>
+              <div className="service-card">
+                <h3>Patang Utsav</h3>
+                <p>The annual Sankranthi fest/celebration at KMIT celebrating the diverse and amazing cultute of this country</p>
+              </div>
+              <div className="service-card">
+                <h3>Navras</h3>
+                <p>The divine celebration of the great mother. Dandiya, Garba, Music, Devotion, anything you can ask for</p>
+              </div>
+            </div>
+          </div>
+        </motion.section>
+
+        <motion.section 
+          id="events"
+          className="section"
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true, amount: 0.3 }}
+        >
+          <div className="section-content">
+            <h2 className="section-title">Upcoming Events</h2>
+            <div className="services-grid">
+              <div className="service-card">
+                <h3>KMIT EVENING 2025</h3>
+                <p>The most awaited and exciting event of KMIT. Workshops led by industry experts during the day and partying by night , we have it all</p>
+              </div>
+              <div className="service-card">
+                <h3>Navras</h3>
+                <p>Our Annual Dandiya night , where the fun is never ending</p>
+              </div>
+              <div className="service-card">
+                <h3>Alumni Meet</h3>
+                <p>Reconnect with your alma mater and network with successful KMIT alumni from around the world.</p>
+              </div>
+            </div>
+          </div>
+        </motion.section>
+
+        
+
+        
+
+        <motion.section className="section">
+          <div className="section-content">
+            <h2 className="section-title">What We Do</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+              {/* ...existing service items... */}
+              {/* Add Learn More button at the bottom of each service item */}
+              <div className="text-center mt-4">
+                <Link href="/services" className="btn btn-secondary">
+                  Explore Our Services
+                </Link>
+              </div>
+            </div>
+          </div>
+        </motion.section>
+
+        <motion.section className="section">
+          <div className="section-content">
+            <h2 className="section-title">Our Sponsors</h2>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-8">
+              <div className="sponsor-card">
+                <Image 
+                  src="/monster/image.png" // Update with actual image name from monster folder
+                  alt="Monster Energy"
+                  width={200}
+                  height={100}
+                  className="sponsor-image"
+                  priority
+                />
+              </div>
+              <div className="sponsor-card">
+                <Image 
+                  src="/vishal/image.png" // Update with actual image name from vishal folder
+                  alt="Vishal"
+                  width={200}
+                  height={100}
+                  className="sponsor-image"
+                  priority
+                />
+              </div>
+              <div className="sponsor-card">
+                <Image 
+                  src="/royal/image.png" // Update with actual image name from royal folder
+                  alt="Royal"
+                  width={200}
+                  height={100}
+                  className="sponsor-image"
+                  priority
+                />
+              </div>
+              <div className="sponsor-card">
+                <Image 
+                  src="/top/image.png" // Update with actual image name from top folder
+                  alt="Top"
+                  width={200}
+                  height={100}
+                  className="sponsor-image"
+                  priority
+                />
+              </div>
+            </div>
+            <div className="text-center mt-8">
+              <Link href="/sponsors" className="btn btn-primary">
+                View All Sponsors
+              </Link>
+            </div>
+          </div>
+        </motion.section>
+
+        <motion.section className="section">
+          <div className="section-content">
+            <h2 className="section-title">Get in Touch</h2>
+            <div className="contact-form">
+              <div className="form-group">
+                <input type="text" className="form-input" placeholder="Your Name" />
+              </div>
+              <div className="form-group">
+                <input type="email" className="form-input" placeholder="Your Email" />
+              </div>
+              <div className="form-group">
+                <textarea className="form-input" rows="5" placeholder="Your Message"></textarea>
+              </div>
+              <button className="btn btn-primary">Send Message</button>
+            </div>
+            <div className="text-center mt-8">
+              <Link href="/contact" className="btn btn-primary">
+                View Full Contact Details
+              </Link>
+            </div>
+          </div>
+        </motion.section>
+
+        <Footer />
       </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+    </>
   );
 }
