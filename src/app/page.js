@@ -181,8 +181,7 @@ export default function Home() {
                 <p>Our Annual Dandiya night , where the fun is never ending</p>
               </div>
               <div className="service-card">
-                <h3>Alumni Meet</h3>
-                <p>Reconnect with your alma mater and network with successful KMIT alumni from around the world.</p>
+                <p>Don&apos;t miss out</p>
               </div>
             </div>
           </div>
