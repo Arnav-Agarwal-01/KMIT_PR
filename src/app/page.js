@@ -74,7 +74,7 @@ export default function Home() {
                 transition={{ type: "spring", stiffness: 300 }}
               >
                 <h3>Media Relations</h3>
-                <p>Strategically collaborating with media outlets to share KMIT's innovations, achievements, and impact on education and technology.</p>
+                <p>Strategically collaborating with media outlets to share KMITs innovations, achievements, and impact on education and technology.</p>
               </motion.div>
               
               <motion.div 
@@ -83,7 +83,7 @@ export default function Home() {
                 transition={{ type: "spring", stiffness: 300 }}
               >
                 <h3>Event Management</h3>
-                <p>Creating memorable experiences through amazing events that showcase KMIT's vibrant community.</p>
+                <p>Creating memorable experiences through amazing events that showcase KMIT vibrant community.</p>
               </motion.div>
               
               <motion.div 
@@ -92,7 +92,7 @@ export default function Home() {
                 transition={{ type: "spring", stiffness: 300 }}
               >
                 <h3>Digital Communications</h3>
-                <p>Leveraging modern platforms to tell KMIT's story, engage with stakeholders, and build a strong online presence.</p>
+                <p>Leveraging modern platforms to tell KMIT story, engage with stakeholders, and build a strong online presence.</p>
               </motion.div>
             </motion.div>
             
@@ -148,7 +148,7 @@ export default function Home() {
             <div className="services-grid">
               <div className="service-card">
                 <h3>Codenovate-2024</h3>
-                <p>KMIT's Annual hackathon , attended by more than 500 people from across the region.</p>
+                <p>KMIT Annual hackathon , attended by more than 500 people from across the region.</p>
               </div>
               <div className="service-card">
                 <h3>Patang Utsav</h3>
