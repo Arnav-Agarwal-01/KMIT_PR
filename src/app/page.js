@@ -55,7 +55,7 @@ export default function Home() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
-            <h1 className="hero-title">
+            <h1 className="hero-title bg-white text-black px-8 py-4 rounded-lg font-black text-5xl md:text-6xl shadow-lg">
               Public Relations KMIT
             </h1>
             <p className="hero-subtitle">
