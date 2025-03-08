@@ -1,17 +1,4 @@
 module.exports = {
   staticPageGenerationTimeout: 60,
-  webpack: (config) => {
-    config.module.rules.push({
-      test: /\.(mp4|webm)$/,
-      use: {
-        loader: 'file-loader',
-        options: {
-          publicPath: '/_next/static/videos/',
-          outputPath: 'static/videos/',
-          name: '[name].[hash].[ext]',
-        },
-      },
-    });
-    return config;
-  },
+  // Remove webpack config as it's not needed for files in public directory
 };
